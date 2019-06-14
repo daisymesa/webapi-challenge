@@ -15,4 +15,17 @@ router.get('/', (req, res) => {
     })
 })
 
+// CREATE = add a new project
+router.post('/', (req, res) => {
+
+    const newProject = { name: req.body.name, description: req.body.description };
+    projectData.insert(newProject)
+    .then(addedProject => {
+        res.status(201).json(addedProject);
+    })
+    .catch(error => {
+        res.status(500).json({ error: 'The new project could not be added.' })
+    })
+})
+
 module.exports = router;
