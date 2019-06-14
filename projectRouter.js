@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 // CREATE = add a new project
 router.post('/', (req, res) => {
     const newProject = { name: req.body.name, description: req.body.description };
-    
+
     projectData.insert(newProject)
         .then(addedProject => {
             res.status(201).json(addedProject);
@@ -62,6 +62,18 @@ router.put('/:id/', (req, res) => {
         res.status(500).send(code).json({ error: 'The project data could not be updated.' });
       })
   })
+
+  // READ - send back a list of all actions for a project
+  router.get("/:id/actions", (req, res) => {
+    const { id } = req.params;
+    projectData.getProjectActions(id)
+      .then(projectActions => {
+        res.json(projectActions);
+      })
+      .catch(error => {
+        res.status(500).json({ error: 'Actions data could not be retrieved.' });
+      });
+  });
 
 
 module.exports = router;
