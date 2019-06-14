@@ -17,8 +17,8 @@ router.get('/', (req, res) => {
 
 // CREATE = add a new project
 router.post('/', (req, res) => {
-
     const newProject = { name: req.body.name, description: req.body.description };
+    
     projectData.insert(newProject)
         .then(addedProject => {
             res.status(201).json(addedProject);
@@ -46,7 +46,7 @@ router.delete('/:id', (req, res) => {
 })
 
 // UPDATE - update a project
-router.put('/:id', (req, res) => {
+router.put('/:id/', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
   
@@ -58,7 +58,7 @@ router.put('/:id', (req, res) => {
           res.status(404).json({ error: 'Incorrect project ID.' })
         }
       })
-      .catch(({ code, message }) => {
+      .catch(error  => {
         res.status(500).send(code).json({ error: 'The project data could not be updated.' });
       })
   })
