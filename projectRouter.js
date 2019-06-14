@@ -45,7 +45,7 @@ router.delete('/:id', (req, res) => {
         })
 })
 
-// UPDATE - update a hub
+// UPDATE - update a project
 router.put('/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
